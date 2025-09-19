@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { SanityLive } from '@/sanity/lib/live'
+import { Header } from '@/components/header'
 
 export const metadata: Metadata = {
   title: 'cakeify posts',
@@ -13,6 +14,7 @@ export default function FrontendLayout({
 }>) {
   return (
     <>
+      <Header />
       {children}
       <SanityLive />
     </>

@@ -1,22 +1,19 @@
-import Link from 'next/link'
 import { sanityFetch } from '@/sanity/lib/live'
 import { POSTS_QUERY } from '@/sanity/lib/queries'
-import { homePath, postPath } from '@/paths'
+import { PostCard } from '@/components/post-card'
+import { Title } from '@/components/title'
 
 export default async function PostsPage() {
   const { data: posts } = await sanityFetch({ query: POSTS_QUERY })
 
   return (
     <main className="container mx-auto grid grid-cols-1 gap-6 p-12">
-      <h1 className="text-4xl font-bold">post index</h1>
-      <ul className="grid grid-cols-1 divide-y divide-slate-700">
+      <Title>post index</Title>
+      <div className="flex flex-col gap-24 py-12">
         {posts.map((post) => (
-          <li key={post._id} className="block py-8 text-slate-400">
-            <Link href={postPath(post?.slug?.current)}>{post?.title}</Link>
-          </li>
+          <PostCard key={post._id} {...post} />
         ))}
-      </ul>
-      <Link href={homePath()}>&larr; return home</Link>
+      </div>
     </main>
   )
 }
